@@ -8,27 +8,36 @@
         src: "{{ path_dest }}{{ war_filename }}"
         dest: "{{ path_bck }}{{ war_filename }}.{{ bck_ver }}"
         flat: yes
+      notify:
+        - Start Webserver deploy
         
-#- name: Webserver deploy
-#  hosts: all
-#  become: yes
-#  tasks:
-#    - name: Stop tomcat services
-#      ansible.builtin.service:
-#        name: tomcat
-#        state: stopped 
-#
-#    - name: Delete all *.war
-#      ansible.builtin.file:
- #       dest: "{{path_dest}}"
-#        state: absent
+- name: Webserver deploy
+  hosts: all
+  become: yes
+  tasks:
+    - name: Stop tomcat services
+      ansible.builtin.service:
+        name: tomcat
+        state: stopped 
+      listen: Start Webserver deploy
 
-#    - name: Copy *.war
-#      ansible.builtin.copy:
- #       src: "/tmp/{{ war_filename }}"
-#        dest: "{{ path_dest }}{{ war_filename }}"
+    - name: Delete all *.war
+      ansible.builtin.file:
+        dest: "{{path_dest}}"
+        state: absent
+      dependecies: 
+        - Stop tomcat services
 
-#    - name: Start tomcat services
- #     ansible.builtin.service:
- #       name: tomcat
- #       state: started 
+    - name: Copy *.war
+      ansible.builtin.copy:
+        src: "/tmp/{{ war_filename }}"
+        dest: "{{ path_dest }}{{ war_filename }}"
+      dependecies: 
+        - Delete all *.war
+
+    - name: Start tomcat services
+      ansible.builtin.service:
+        name: tomcat
+        state: started 
+      dependecies: 
+        - Copy *.war
