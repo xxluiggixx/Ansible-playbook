@@ -1,24 +1,33 @@
 ---
-- name: Webserver deploy
-  hosts: IWs
+- name: Backup files
+  hosts: "{{host_bck}}"
   become: yes
   tasks:
-    - name: Stop tomcat services
-      ansible.builtin.service:
-        name: tomcat
-        state: stopped 
+    - name: Download *.war 
+      ansible.builtin.fetch:
+        src: "{{ path_dest }}{{ war_filename }}"
+        dest: "{{ path_bck }}{{ war_filename }}.{{ bck_ver }}"
+        
+#- name: Webserver deploy
+#  hosts: all
+#  become: yes
+#  tasks:
+#    - name: Stop tomcat services
+#      ansible.builtin.service:
+#        name: tomcat
+#        state: stopped 
+#
+#    - name: Delete all *.war
+#      ansible.builtin.file:
+ #       dest: "{{path_dest}}"
+#        state: absent
 
-    - name: Delete all *.war
-      ansible.builtin.file:
-        dest: /srv/tomcat/webapps/
-        state: absent
+#    - name: Copy *.war
+#      ansible.builtin.copy:
+ #       src: "/tmp/{{ war_filename }}"
+#        dest: "{{ path_dest }}{{ war_filename }}"
 
-    - name: Copy *.war
-      ansible.builtin.copy:
-        src: "/tmp/{{ war_filename }}"
-        dest: "/srv/tomcat/webapps/{{ war_filename }}"
-
-    - name: Start tomcat services
-      ansible.builtin.service:
-        name: tomcat
-        state: started 
+#    - name: Start tomcat services
+ #     ansible.builtin.service:
+ #       name: tomcat
+ #       state: started 
