@@ -1,0 +1,9 @@
+---
+- name: Backup files
+  hosts: all
+  become: yes
+  tasks:
+    - name: Download *.war 
+      ansible.builtin.fetch:
+        src: "{{ path_dest }}"
+        dest: "{{ path_bck }}"
