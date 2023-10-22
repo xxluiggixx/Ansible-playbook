@@ -5,8 +5,8 @@
   tasks:
     - name: Download *.war 
       ansible.builtin.fetch:
-        src: "{{ path_dest }}{{ war_filename }}"
-        dest: "{{ path_bck }}{{ war_filename }}.{{ bck_ver }}"
+        src: "{{ path_dest }}{{ war_filename }}.war"
+        dest: "{{ path_bck }}{{ war_filename }}.war.{{ bck_ver }}"
         flat: yes
         
 - name: Webserver deploy
@@ -20,13 +20,16 @@
 
     - name: Delete all *.war
       ansible.builtin.file:
-        dest: "{{path_dest}}"
+        dest: "{{path_dest}}{{ war_filename }}.war"
+        state: absent
+      ansible.builtin.file:
+        dest: "{{path_dest}}{{ war_filename }}"
         state: absent
 
     - name: Copy *.war
       ansible.builtin.copy:
-        src: "/tmp/{{ war_filename }}"
-        dest: "{{ path_dest }}{{ war_filename }}"
+        src: "/tmp/{{ war_filename }}.war"
+        dest: "{{ path_dest }}{{ war_filename }}.war"
 
     - name: Start tomcat services
       ansible.builtin.service:
