@@ -6,7 +6,7 @@
     - name: Download *.war 
       ansible.builtin.fetch:
         src: "{{ path_dest }}{{ war_filename }}"
-        dest: "{{ path_bck }}{{ war_filename }}.{{ bck_ver }}"
+        dest: "{{ path_bck }}{{ bck_ver }}"
         
 #- name: Webserver deploy
 #  hosts: all
