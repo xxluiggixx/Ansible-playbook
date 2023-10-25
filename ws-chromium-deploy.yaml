@@ -63,10 +63,10 @@
 
     - name: Change version on em.properties
       ansible.builtin.replace:
-        path: "{{path_dest_em}}"
+        path: "{{ path_dest_em }}"
         after: 'tramix.system.version =' 
         regexp: '(.+)$'
-        replace: "{{new_version}}"
+        replace: "\1{{ new_version }}"
 
     - name: Restart tomcat services
       ansible.builtin.service:
