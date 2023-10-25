@@ -51,6 +51,10 @@
   hosts: all
   become: yes
   tasks:
+    - name: Sleep for a few seconds
+      ansible.builtin.wait_for:
+        timeout: 10  # Tiempo de espera en segundos
+        state: started
       #subir los em.properties
     - name: Copy em.properties
       ansible.builtin.copy:
