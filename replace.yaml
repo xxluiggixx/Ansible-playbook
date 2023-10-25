@@ -1,0 +1,10 @@
+---
+- name: Replace module
+  hosts: all
+  tasks:
+    - name: Change version
+      ansible.builtin.replace:
+        path: {{path_dest_em}}
+        after: 'tramix.system.version =' 
+        regexp: '.'
+        replace: {{version}}

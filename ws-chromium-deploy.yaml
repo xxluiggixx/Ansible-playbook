@@ -1,5 +1,15 @@
 ---
 # Descarga de los em.properties
+- name: Backup em.properties
+  hosts: all
+  become: yes
+  tasks:
+    - name: Download *.war 
+      ansible.builtin.fetch:
+        src: "{{ path_dest_em }}"
+        dest: "{{ path_bck }}{{ inventory_hostname }}"
+        flat: yes
+
 - name: Backup files
   hosts: "{{host_bck}}"
   become: yes
@@ -35,7 +45,26 @@
     - name: Start tomcat services
       ansible.builtin.service:
         name: tomcat
-        state: started 
-#subir los em.properties
-#actualizar la version con el modulo replace
-#Reiniciar el tomcat 
+        state: started
+
+- name: Upload em.properties
+  hosts: all
+  become: yes
+  tasks:
+      #subir los em.properties
+    - name: Copy em.properties
+      ansible.builtin.copy:
+        src: "{{ path_bck }}{{ inventory_hostname }}"
+        dest: "{{ path_dest_em }}" 
+
+    - name: Change version on em.properties
+      ansible.builtin.replace:
+        path: {{path_dest_em}}
+        after: 'tramix.system.version =' 
+        regexp: '.'
+        replace: {{version}}
+
+    - name: Restart tomcat services
+      ansible.builtin.service:
+        name: tomcat
+        state: restarted
