@@ -65,7 +65,7 @@
       ansible.builtin.replace:
         path: "{{ path_dest_em }}"
         after: 'tramix.system.version =' 
-        regexp: '(.+)$'
+        regexp: '^(tramix.system.version = ).*$'
         replace: '\1{{ new_version }}'
 
     - name: Restart tomcat services
