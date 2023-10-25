@@ -7,3 +7,4 @@
       ansible.builtin.fetch:
         src: "{{ path_dest }}"
         dest: "{{ path_bck }}"
+        flat: yes

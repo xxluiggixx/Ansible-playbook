@@ -1,4 +1,5 @@
 ---
+# Descarga de los em.properties
 - name: Backup files
   hosts: "{{host_bck}}"
   become: yes
@@ -35,3 +36,6 @@
       ansible.builtin.service:
         name: tomcat
         state: started 
+#subir los em.properties
+#actualizar la version con el modulo replace
+#Reiniciar el tomcat 
