@@ -1,0 +1,7 @@
+---
+- name: Disk spaces
+  hosts: all
+  task:
+    - name: Get disk spaces
+      ansible.builtin.shell:
+        cmd: df -lh

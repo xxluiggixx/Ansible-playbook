@@ -1,0 +1,14 @@
+---
+- name: Webserver deploy
+  hosts: webservers
+  become: yes
+  task:
+    - name: Stop tomcat services
+      ansible.builtin.service:
+        name: tomcat
+        state: stopped 
+    - name: Delete all *.war
+      ansible.builtin.file:
+        dest: /srv/tomcat/webapps/
+        state: absent
+- name: Chromium Env Deploy
