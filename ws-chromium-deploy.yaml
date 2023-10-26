@@ -1,14 +1,24 @@
 ---
 - name: Webserver deploy
-  hosts: webservers
+  hosts: IWs
   become: yes
   tasks:
     - name: Stop tomcat services
       ansible.builtin.service:
         name: tomcat
         state: stopped 
+
     - name: Delete all *.war
       ansible.builtin.file:
         dest: /srv/tomcat/webapps/
         state: absent
-- name: Chromium Env Deploy
+
+    - name: Copy *.war
+      ansible.builtin.copy:
+        src: "/tmp/{{ war_filename }}"
+        dest: "/srv/tomcat/webapps/{{ war_filename }}"
+
+    - name: Start tomcat services
+      ansible.builtin.service:
+        name: tomcat
+        state: started 
