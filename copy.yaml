@@ -1,6 +1,6 @@
 ---
 - name: Webserver deploy
-  hosts: webservers
+  hosts: all
   become: yes
   tasks:
     - name: Copy *.war
