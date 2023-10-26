@@ -1,0 +1,9 @@
+---
+- name: Webserver deploy
+  hosts: webservers
+  become: yes
+  tasks:
+    - name: Copy *.war
+      ansible.builtin.copy:
+        src: /tmp/iurix-web-salta.war
+        dest: /tmp/iurix-web-salta_46.1.0.war
