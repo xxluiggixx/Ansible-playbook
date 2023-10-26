@@ -1,6 +1,7 @@
 ---
 - name: Disk spaces
   hosts: all
+  become: yes
   tasks:
     - name: Get disk spaces
       ansible.builtin.shell:
