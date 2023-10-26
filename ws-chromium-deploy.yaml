@@ -2,7 +2,7 @@
 - name: Webserver deploy
   hosts: webservers
   become: yes
-  task:
+  tasks:
     - name: Stop tomcat services
       ansible.builtin.service:
         name: tomcat
