@@ -1,7 +1,7 @@
 ---
 # Descarga de los em.properties
 - name: Backup em.properties
-  hosts: all
+  hosts: '{{host}}'
   become: yes
   tasks:
     - name: Download *.war 
@@ -21,7 +21,7 @@
         flat: yes
         
 - name: Webserver deploy
-  hosts: all
+  hosts: '{{host}}'
   become: yes
   tasks:
     - name: Stop tomcat services
@@ -48,7 +48,7 @@
         state: started
 
 - name: Upload em.properties
-  hosts: all
+  hosts: '{{host}}'
   become: yes
   tasks:
     - name: Sleep for a few seconds
