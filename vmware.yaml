@@ -1,6 +1,7 @@
 ---
 - name: VMware tools
   hosts: all
+  become: yes
   tasks:
     - name: Verificar si el módulo 'requests' está instalado
       command: pip show requests
@@ -11,7 +12,7 @@
       pip:
         name: requests
       when: requests_module_info.rc != 0
-      
+
     - name: Gather info about tag categories
       community.vmware.vmware_category_info:
       delegate_to: localhost
