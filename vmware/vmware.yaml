@@ -2,6 +2,7 @@
 - name: VMware tools
   hosts: all
   remote_user: '{{ user }}'
+  become: yes
   vars:
     ansible_python_interpreter: /usr/bin/python3
   tasks:
