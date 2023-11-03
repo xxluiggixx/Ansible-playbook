@@ -1,0 +1,7 @@
+---
+- name: VMware tools
+  tasks:
+    - name: Gather info about tag categories
+      community.vmware.vmware_category_info:
+      delegate_to: localhost
+      register: all_tag_category_info
