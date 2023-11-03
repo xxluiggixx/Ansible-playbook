@@ -1,7 +1,7 @@
 ---
 # Descarga de los em.properties
 - name: Backup em.properties
-  hosts: '{{host}}'
+  hosts: '{{ host }}'
   become: yes
   tasks:
     - name: Download *.war 
@@ -21,7 +21,7 @@
         flat: yes
         
 - name: Webserver deploy
-  hosts: '{{host}}'
+  hosts: '{{ host }}'
   become: yes
   tasks:
     - name: Stop tomcat services
@@ -31,10 +31,10 @@
 
     - name: Delete all *.war
       ansible.builtin.file:
-        dest: "{{path_dest}}{{ war_filename }}.war"
+        dest: "{{ path_dest }}{{ war_filename }}.war"
         state: absent
       ansible.builtin.file:
-        dest: "{{path_dest}}{{ war_filename }}"
+        dest: "{{ path_dest }}{{ war_filename }}"
         state: absent
 
     - name: Copy *.war
@@ -48,7 +48,7 @@
         state: started
 
 - name: Upload em.properties
-  hosts: '{{host}}'
+  hosts: '{{ host }}'
   become: yes
   tasks:
     - name: Sleep for a few seconds
