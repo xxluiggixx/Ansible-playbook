@@ -2,10 +2,16 @@
 - name: VMware tools
   hosts: all
   tasks:
+    - name: Verificar si el módulo 'requests' está instalado
+      command: pip show requests
+      register: requests_module_info
+      ignore_errors: yes
+
     - name: Instalar el módulo 'requests'
       pip:
         name: requests
-      when: ansible_python_interpreter == "/usr/bin/python3"
+      when: requests_module_info.rc != 0
+      
     - name: Gather info about tag categories
       community.vmware.vmware_category_info:
       delegate_to: localhost
