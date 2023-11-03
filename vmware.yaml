@@ -1,5 +1,6 @@
 ---
 - name: VMware tools
+  hosts: all
   tasks:
     - name: Gather info about tag categories
       community.vmware.vmware_category_info:
