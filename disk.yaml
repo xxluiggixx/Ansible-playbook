@@ -6,3 +6,7 @@
     - name: Get disk spaces
       ansible.builtin.shell:
         cmd: df -lh
+      register: output
+    - name: print output
+      debug:
+        var: output
