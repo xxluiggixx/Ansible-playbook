@@ -2,9 +2,12 @@
 - name: Replace module
   hosts: all
   tasks:
-    - name: Change version
+    - name: Change version on em.properties
       ansible.builtin.replace:
-        path: {{path_dest_em}}
-        after: 'tramix.system.version =' 
-        regexp: '.'
-        replace: {{version}}
+        path: "{{ path_dest_em }}"
+        regexp: '^(documents.ws.url).*$'
+        replace: '#documents.ws.url = http://k8s.justiciasalta.gov.ar:30090/document-ws/soap/document?wsdl'
+    - name: Restart tomcat services
+      ansible.builtin.service:
+        name: tomcat
+        state: restarted
