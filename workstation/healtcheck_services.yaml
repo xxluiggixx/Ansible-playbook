@@ -4,7 +4,7 @@
   tasks:
     - name: Ejecutar netstat y contar las líneas que contienen offi
       ansible.builtin.shell:
-        cmd: "netstat -putona | grep offi"
+        cmd: "netstat -putona | grep offi | grep -vi established"
       register: netstat_output
       ignore_errors: yes  # Para evitar que falle si no se encuentran coincidencias
 
@@ -20,3 +20,8 @@
     - name: Numero de lineas 
       debug:
         var: num_lines
+
+    - name: Reiniciar loffice si hay menos de 3 líneas
+      command: "systemctl restart loffice"
+      command: "systemctl restart ooffice"
+      when: num_lines < 4    
