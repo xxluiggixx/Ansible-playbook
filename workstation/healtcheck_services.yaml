@@ -31,4 +31,4 @@
       ansible.builtin.service:
         name: loffice
         state: restarted
-      when: "{{ num_lines | int }} < 4"
+      when: "{{ num_lines | int }} < 2"
