@@ -1,0 +1,15 @@
+---
+- name: Verificar netstat y reiniciar loffice si es necesario
+  hosts: "{{ host }}"
+  tasks:
+    - name: Ejecutar netstat y contar las líneas que contienen "offi"
+      shell: "netstat -putona | grep offi"
+      register: netstat_output
+      ignore_errors: yes  # Para evitar que falle si no se encuentran coincidencias
+      debug:
+        var: netstat_output.stdout_lines
+
+    - name: Contar las líneas en la salida de netstat
+      set_fact:
+        num_lines: "{{ netstat_output.stdout_lines | length }}"
+      when: netstat_output is succeeded  # Solo contar si la ejecución anterior tuvo éxito
