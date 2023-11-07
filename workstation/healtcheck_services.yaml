@@ -16,3 +16,6 @@
       set_fact:
         num_lines: "{{ netstat_output.stdout_lines | length }}"
       when: netstat_output is succeeded  # Solo contar si la ejecución anterior tuvo éxito
+      register: num_lines
+      debug:
+        var: num_lines
