@@ -4,9 +4,11 @@
   tasks:
     - name: Ejecutar netstat y contar las líneas que contienen offi
       ansible.builtin.shell:
-        cmd: netstat -putona | grep offi
+        cmd: "netstat -putona | grep offi"
       register: netstat_output
       ignore_errors: yes  # Para evitar que falle si no se encuentran coincidencias
+
+    - name: Debug de la salida de netstat
       debug:
         var: netstat_output.stdout_lines
 
