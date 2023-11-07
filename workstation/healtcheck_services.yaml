@@ -21,10 +21,13 @@
       debug:
         var: num_lines
 
-    - name: Reiniciar loffice si hay menos de 3 líneas
+    - name: Reiniciar ooffice si hay menos de 3 líneas
       ansible.builtin.service:
         name: ooffice
         state: restarted
+      when: "{{ num_lines | int }} < 4"
+      
+    - name: Reiniciar loffice si hay menos de 3 líneas
       ansible.builtin.service:
         name: loffice
         state: restarted
