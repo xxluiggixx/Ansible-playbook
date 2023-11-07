@@ -2,7 +2,7 @@
 - name: Verificar netstat y reiniciar loffice si es necesario
   hosts: "{{ host }}"
   tasks:
-    - name: Ejecutar netstat y contar las líneas que contienen "offi"
+    - name: Ejecutar netstat y contar las líneas que contienen offi
       shell: "netstat -putona | grep offi"
       register: netstat_output
       ignore_errors: yes  # Para evitar que falle si no se encuentran coincidencias
