@@ -22,6 +22,10 @@
         var: num_lines
 
     - name: Reiniciar loffice si hay menos de 3 líneas
-      command: "systemctl restart loffice"
-      command: "systemctl restart ooffice"
+      ansible.builtin.service:
+        name: ooffice
+        state: restarted
+      ansible.builtin.service:
+        name: loffice
+        state: restarted
       when: "{{ num_lines | int }} < 4"
