@@ -1,6 +1,6 @@
 ---
 - name: Verificar netstat y reiniciar loffice si es necesario
-  hosts: "{{ host }}"
+  hosts: all
   tasks:
     - name: Ejecutar netstat y contar las líneas que contienen offi
       ansible.builtin.shell:
@@ -26,7 +26,7 @@
         name: ooffice
         state: restarted
       when: "{{ num_lines | int }} < 4"
-      
+
     - name: Reiniciar loffice si hay menos de 3 líneas
       ansible.builtin.service:
         name: loffice
