@@ -24,4 +24,4 @@
     - name: Reiniciar loffice si hay menos de 3 líneas
       command: "systemctl restart loffice"
       command: "systemctl restart ooffice"
-      when: num_lines < 4    
+      when: "{{ num_lines | int }} < 4"
