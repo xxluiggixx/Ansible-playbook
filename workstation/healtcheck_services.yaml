@@ -1,6 +1,6 @@
 ---
 - name: Verificar netstat y reiniciar loffice si es necesario
-  hosts: all
+  hosts: "{{ host }}"
   tasks:
     - name: Ejecutar netstat y contar las líneas que contienen offi
       ansible.builtin.shell:
