@@ -1,12 +1,15 @@
 ---
-- name: Delete logs
+- name: Cleanup logs
   hosts: all
+  gather_facts: false
   tasks:
-    - name: Remove logs tomcat
-      ansible.builtin.file:
-        path: /etc/*.log.*
+  - name: Collect files
+    shell: find /var/log/tomcat -type f -mtime +3
+    register: matched_files_dirs
+    
+  - name: Remove files
+    become_user: root
+    file: 
+        path: /var/log/tomcat 
         state: absent
-    - name: Remove logs tomcat Catalina
-      ansible.builtin.file:
-        path: /etc/*.*.log
-        state: absent
+    with_items: "{{ matched_files_dirs.stdout_lines }}"
