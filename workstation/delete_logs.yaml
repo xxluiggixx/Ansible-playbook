@@ -3,13 +3,14 @@
   hosts: all
   gather_facts: false
   tasks:
-  - name: Collect files
-    shell: find /var/log/tomcat -type f -mtime +3
-    register: matched_files_dirs
-    
-  - name: Remove files
-    become_user: root
-    file: 
-        path: /var/log/tomcat 
-        state: absent
-    with_items: "{{ matched_files_dirs.stdout_lines }}"
+  - name: Delete files based on a pattern
+    find:
+      paths: /var/log/tomcat
+      patterns: "{{ pattern }}"
+    register: files_to_delete
+
+  - name: Remove the identified files
+    file:
+      path: "{{ item.path }}"
+      state: absent
+    with_items: "{{ files_to_delete.files }}"
