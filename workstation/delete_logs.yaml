@@ -4,9 +4,9 @@
   tasks:
     - name: Remove logs tomcat
       ansible.builtin.file:
-      path: /etc/*.log.*
-      state: absent
+        path: /etc/*.log.*
+        state: absent
     - name: Remove logs tomcat Catalina
       ansible.builtin.file:
-      path: /etc/*.*.log
-      state: absent
+        path: /etc/*.*.log
+        state: absent
