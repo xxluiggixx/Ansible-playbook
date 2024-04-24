@@ -1,0 +1,8 @@
+---
+- name: Delete logs
+  hosts: all
+  tasks:
+    - name: Remove logs /var/log/tomcat
+      ansible.builtin.file:
+      path: /etc/*.log.*
+      state: absent
