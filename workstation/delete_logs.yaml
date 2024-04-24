@@ -1,6 +1,6 @@
 ---
 - name: Cleanup logs
-  hosts: all
+  hosts: "{{ host }}"
   gather_facts: false
   tasks:
   - name: Delete files based on a pattern
