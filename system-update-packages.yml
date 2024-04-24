@@ -1,6 +1,5 @@
 - hosts: all
-  become_user: root
-
+  become: true
   tasks:
 
     - name: Install system updates for centos systems
