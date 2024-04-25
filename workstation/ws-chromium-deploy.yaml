@@ -10,7 +10,7 @@
         dest: "{{ path_bck }}{{ inventory_hostname }}"
         flat: yes
 
-- name: Backup files
+- name: "Backup del war version {{ bck_ver }}"
   hosts: "{{host_bck}}"
   become: yes
   tasks:
