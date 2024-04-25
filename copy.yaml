@@ -1,9 +1,9 @@
 ---
-- name: Webserver deploy
-  hosts: all
+- name: "Upload file {{ filename }}"
+  hosts: "{{ host }}"
   become: yes
   tasks:
-    - name: Copy *.war
+    - name: Copy 
       ansible.builtin.copy:
-        src: "/tmp/{{ war_filename }}"
-        dest: "/tmp/{{ war_filename }}.46.1.0.war"
+        src: "/tmp/upload/{{ filename }}"
+        dest: "{{ path_dest }}/{{ filename }}"
