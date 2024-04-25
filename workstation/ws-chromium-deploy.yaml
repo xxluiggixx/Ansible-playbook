@@ -39,7 +39,7 @@
 
     - name: Copy *.war
       ansible.builtin.copy:
-        src: "/tmp/{{ war_filename }}.war"
+        src: "/tmp/{{ war_filename }}{{ new_version }}.war"
         dest: "{{ path_dest }}{{ war_filename }}.war"
 
     - name: Start tomcat services
