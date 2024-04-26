@@ -1,0 +1,12 @@
+---
+- name: Iurix current version
+  hosts: all
+  become: yes
+  tasks:
+    - name: Get current version
+      ansible.builtin.shell:
+        cmd: 'cat /srv/tomcat/webapps/iurix-web-salta/WEB-INF/classes/com/em/common/util/config/em.properties | grep -i "system.version" | awk "{print $3}"'
+      register: output
+    - name: print output
+      debug:
+        var: output.stdout_lines
