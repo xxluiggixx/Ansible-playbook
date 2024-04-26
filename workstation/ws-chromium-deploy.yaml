@@ -14,8 +14,8 @@
         cmd: cat /srv/tomcat/webapps/iurix-web-salta/WEB-INF/classes/com/em/common/util/config/em.properties | grep -i "system.version" | awk '{print $3}'
       register: bck_ver
 
-- name: "Backup del war version {{ bck_ver }}"
-  hosts: "{{host_bck}}"
+- name: 'Backup del war version {{ bck_ver.stdout_lines }}'
+  hosts: "{{ host_bck }}"
   become: yes
   tasks:
     - name: Download *.war 
