@@ -4,11 +4,15 @@
   hosts: '{{ host }}'
   become: yes
   tasks:
-    - name: Download *.war 
+    - name: Download em.properties 
       ansible.builtin.fetch:
         src: "{{ path_dest_em }}"
         dest: "{{ path_bck }}{{ inventory_hostname }}"
         flat: yes
+    - name: Get current version
+      ansible.builtin.shell:
+        cmd: cat /srv/tomcat/webapps/iurix-web-salta/WEB-INF/classes/com/em/common/util/config/em.properties | grep -i "system.version" | awk '{print $3}'
+      register: bck_ver
 
 - name: "Backup del war version {{ bck_ver }}"
   hosts: "{{host_bck}}"
