@@ -1,6 +1,5 @@
 - name: healtcheck
   hosts: "{{ host }}"
-  become: true
   vars_files:
     - ../vars/main.yml
   tasks:
