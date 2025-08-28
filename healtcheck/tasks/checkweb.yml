@@ -7,7 +7,7 @@
 
   rescue:
   - name: Restart tomcat
-    become: yes
+    become: true
     ansible.builtin.service:
       name: tomcat
       state: restarted
