@@ -6,6 +6,16 @@
       url: "http://{{ ansible_all_ipv4_addresses[0] }}:{{ web_url }}"
 
   rescue:
+  - name: Check tomcat service status
+    become: true
+    ansible.builtin.command: systemctl status tomcat.service
+    register: tomcat_status
+    ignore_errors: true
+
+  - name: Debug tomcat status
+    ansible.builtin.debug:
+      var: tomcat_status
+
   - name: Restart tomcat
     become: true
     become_user: root
