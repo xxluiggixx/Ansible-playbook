@@ -1,0 +1,7 @@
+- name: healtcheck
+  hosts: localhost
+  vars_files:
+  - ../vars/main.yml
+  tasks:
+  - name: Status web
+    include_tasks: tasks/checkweb.yml

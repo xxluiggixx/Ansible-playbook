@@ -1,0 +1,16 @@
+---
+- name: Block web status
+  block:
+  - name: Request web status
+    ansible.builtin.uri:
+      url: "http://{{ ansible_all_ipv4_addresses[0] }}:{{ web_url }}"
+
+  rescue:
+  - name: Restart tomcat
+    become: true
+    ansible.builtin.service:
+      name: tomcat
+      state: restarted
+
+  - name: Slack message
+    ansible.builtin.include_tasks: Slack.yml

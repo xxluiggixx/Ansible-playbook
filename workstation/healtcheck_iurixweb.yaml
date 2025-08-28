@@ -1,0 +1,34 @@
+---
+- name: Verificar netstat y reiniciar loffice si es necesario
+  hosts: "{{ host }}"
+  tasks:
+    - name: Ejecutar netstat y contar las líneas que contienen offi
+      ansible.builtin.shell:
+        cmd: "netstat -putona | grep offi | grep -vi established"
+      register: netstat_output
+      ignore_errors: yes  # Para evitar que falle si no se encuentran coincidencias
+
+    - name: Debug de la salida de netstat
+      debug:
+        var: netstat_output.stdout_lines
+
+    - name: Contar las líneas en la salida de netstat
+      set_fact:
+        num_lines: "{{ netstat_output.stdout_lines | length }}"
+      when: netstat_output is succeeded  # Solo contar si la ejecución anterior tuvo éxito
+
+    - name: Numero de lineas 
+      debug:
+        var: num_lines
+
+    - name: Reiniciar ooffice si hay menos de 3 líneas
+      ansible.builtin.service:
+        name: ooffice
+        state: restarted
+      when: "{{ num_lines | int }} < 2"
+
+    - name: Reiniciar loffice si hay menos de 3 líneas
+      ansible.builtin.service:
+        name: loffice
+        state: restarted
+      when: "{{ num_lines | int }} < 2"
