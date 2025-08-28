@@ -8,6 +8,8 @@
   rescue:
   - name: Restart tomcat
     become: true
+    become_user: root
+    become_method: sudo
     ansible.builtin.service:
       name: tomcat
       state: restarted
