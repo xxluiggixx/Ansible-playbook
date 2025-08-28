@@ -1,21 +1,19 @@
 - name: Set fact Slack payload
   ansible.builtin.set_fact:
-    slack_payload: >-
-      { attachments: [{
-          mrkdwn_in: ["text"],
-          color: 'danger',
-          text: 'Tomcat {{ ansible_hostname }} has been restart',
-          title: 'Tomcat',
+    slack_payload:
+      attachments:
+        - mrkdwn_in:
+            - "text"
+          color: "danger"
+          text: "Tomcat {{ ansible_hostname }} has been restart"
+          title: "Tomcat"
           author_name: "Healtcheck"
-      }] }
 
 - name: Slack message
   delegate_to: localhost
   ansible.builtin.uri:
     url: "{{ slack_url }}"
     method: POST
-    headers:
-      Content-Type: "application/json"
-    body: "{{ slack_payload | to_json }}"
+    body: "{{ slack_payload }}"
     body_format: json
     status_code: 200
