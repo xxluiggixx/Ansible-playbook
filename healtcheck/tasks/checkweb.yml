@@ -8,7 +8,7 @@
   rescue:
   - name: Check tomcat service status
     become: true
-    ansible.builtin.command: systemctl restart tomcat.service
+    ansible.builtin.command: sudo systemctl restart tomcat.service
     register: tomcat_status
     ignore_errors: true
 
