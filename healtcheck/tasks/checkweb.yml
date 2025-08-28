@@ -8,21 +8,9 @@
   rescue:
   - name: Check tomcat service status
     become: true
-    ansible.builtin.command: systemctl status tomcat.service
+    ansible.builtin.command: systemctl restart tomcat.service
     register: tomcat_status
     ignore_errors: true
-
-  - name: Debug tomcat status
-    ansible.builtin.debug:
-      var: tomcat_status
-
-  - name: Restart tomcat
-    become: true
-    become_user: root
-    become_method: sudo
-    ansible.builtin.service:
-      name: tomcat
-      state: restarted
 
   - name: Slack message
     ansible.builtin.include_tasks: Slack.yml
